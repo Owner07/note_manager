@@ -11,7 +11,7 @@ def get_deadline_date():
             issue_date = datetime.strptime(issue_date_in, DATE_FORMAT)
             return issue_date
         except ValueError:
-            print(f"Некорректный формат даты. Пожалуйста, используйте формат {DATE_FORMAT}.")
+            print(f"Некорректный формат даты. Пожалуйста, используйте вид ввода на примере: 12.12.2024: .")
 
 
 def склонять_день(days):
