@@ -2,7 +2,7 @@ from datetime import datetime # импорт класса для работы с
 
 DATE_FORMAT = "%d.%m.%Y"  # Константа для формата даты
 
-
+print("Текущая дата: "+datetime.now().strftime("%d.%m.%Y"))
 def get_deadline_date():
     # Запрашивает у пользователя дату дедлайна и возвращает объект datetime.
     while True:
@@ -30,11 +30,13 @@ def проверить_дедлайн():
 
     now_date = datetime.now() # присваивает дату на момент запроса
 
-    if issue_date < now_date:
+    if issue_date.date() < now_date.date():
         days_overdue = (now_date - issue_date).days
         print(f"Дедлайн истек на {days_overdue} {склонять_день(days_overdue)} назад.") # высчитываем разницу между датами
+    elif issue_date.date() == now_date.date():
+        print("Дедлайн сегодня!")
     else:
-        days_remaining = (issue_date - current_date).days
+        days_remaining = (issue_date.date() - now_date.date()).days
         print(f"Дедлайн еще не истек. Осталось {days_remaining} {склонять_день(days_remaining)}.")  # высчитываем разницу между датами
 
 
