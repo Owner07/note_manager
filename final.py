@@ -1,30 +1,30 @@
-username_in =input('Как тебя зовут?')
-username=('Имя пользователя: ' + username_in)
+username =input('Как тебя зовут?')
+
 subtitles =  ['Основные темы','Персонажи','Рекомендации для чтения']
 title = input('Введите название заметки: ')
 subtitles.append(title)
-content_in = input('Добавьте заметку: ')
-content = ('Описание заметки: '+ content_in)
+content = input('Добавьте заметку: ')
 status_in = input('Введите важность заметки: ')
 status = ('Статус заметки: '+ status_in)
-created_date_in =input('Введите дату в формате День-месяц-год, например 10-12-2024: ')
-created_date = ('Дата создания заметки: '+created_date_in[0:5])
-issue_date_in = input('Введите дату окончания заметки в формате День-месяц-год, например 10-12-2025:')
-issue_date = ('Дата истечения заметки: '+ issue_date_in[0:5])
+created_date =input('Введите дату в формате День-месяц-год, например 10-12-2024: ')
+issue_date = input('Введите дату окончания заметки в формате День-месяц-год, например 10-12-2025:')
 
 note = [
 
 username,
 
+title,
+
 content,
 
 status,
 
-created_date,
+created_date[0:5],
 
-issue_date,
+issue_date[0:5],
 
 subtitles # вложенный список для заголовков
 
 ]
-print(note)
+print('Имя пользователя:', note[0], 'Название заметки: ', note[1], 'Текст заметки: ', note[2],
+      'Статус заметки: ', note[3], 'Дата создания заметки: ', note[4], 'Дедлайн заметки', note[5], f'Список заметок: ', note[6])
