@@ -51,7 +51,7 @@ def issue_date_valid():
 
 def create_note():
     created_date = datetime.now().strftime('%d.%m.%Y')
-    print("Текущая дата: " + created_date)
+    print("Текущая дата - дата создания заметки: " + created_date)
 
     username = valid_name()
     title = title_valid()
@@ -66,30 +66,30 @@ def create_note():
         "status": status,
         "created_date": created_date,
         "issue_date": issue_date
-}
+        }
 
     return note
 
-notes_list = [create_note()]
-print(notes_list)
+
+
 
 
 # Функция по сохранению заметок в файл в структурированном формате
-def save_notes_to_file(notes, filename):
-    yaml_notes = notes_list # Создаем копию списка словарей для дальнейшей работы
-    for index in range(len(yaml_notes)): # Преобразуем ключи словарей в понятный для пользователя вид
-        yaml_notes[index]["Имя пользователя"] = yaml_notes[index].pop("username")
-        yaml_notes[index]["Заголовок"] = yaml_notes[index].pop("title")
-        yaml_notes[index]["Описание"] = yaml_notes[index].pop("content")
-        yaml_notes[index]["Статус"] = yaml_notes[index].pop("status")
-        yaml_notes[index]["Дата создания"] = yaml_notes[index].pop("created_date")
-        yaml_notes[index]["Дедлайн"] = yaml_notes[index].pop("issue_date")
-    file = open(filename, mode="w", encoding="utf-8")
-    yaml.dump(yaml_notes, file, allow_unicode=True, sort_keys=False)
-    file.close()
+def append_notes_to_file(notes, filename):
+    with open(filename, mode="a", encoding="utf-8") as file:
+        yaml_notes = notes  # Создаем копию списка словарей для дальнейшей работы
+        for index in range(len(yaml_notes)): # Преобразуем ключи словарей в понятный для пользователя вид
+            yaml_notes[index]["Имя пользователя"] = yaml_notes[index].pop("username")
+            yaml_notes[index]["Заголовок"] = yaml_notes[index].pop("title")
+            yaml_notes[index]["Описание"] = yaml_notes[index].pop("content")
+            yaml_notes[index]["Статус"] = yaml_notes[index].pop("status")
+            yaml_notes[index]["Дата создания"] = yaml_notes[index].pop("created_date")
+            yaml_notes[index]["Дедлайн"] = yaml_notes[index].pop("issue_date")
+        yaml.dump(yaml_notes, file, allow_unicode=True, sort_keys=False)
+
 
 # Создаем первую заметку и добавляем в список
-
+notes_list = [create_note()]
 # Запрашиваем необходимость добавления новой заметки
 while True:
     add_new_note = input("\nХотите добавить ещё одну заметку? (Да/Нет): ")
@@ -102,14 +102,23 @@ while True:
         print('Введите "Да" или "Нет"')
         continue
 
-# Сохраняем созданные заметки в файл YAML
+# Сохраняем созданные заметки в существующий файл
 while True:
-    request_create_file = input("Вы хотите сохранить в файл? (Да/Нет): ")
-    if request_create_file.lower() == "да":
-        filename_ = input("Введите название файла: ") + ".yaml"
-        save_notes_to_file(notes_list, filename_)
+    request_append_new_note = input(f"\nХотите добавить новые заметки в файл? (Да/Нет): ")
+    if request_append_new_note.lower() == "да":
+        filename_ = input("Введите название существующего файла yaml: ") + ".yaml"
+        try:
+            append_notes_to_file(notes_list, filename_)
+        except  FileNotFoundError:
+            print(f"\nФайл {filename_} не найден. Создан новый файл.")
+            open(filename_, mode="x")
+            append_notes_to_file(notes_list, filename_)
+        except UnicodeDecodeError:
+            print(f"\nОшибка при чтении файла {filename_}. Проверьте его содержимое.")
+        except PermissionError:
+            print(f"\nДоступ к файлу {filename_} запрещен.")
         break
-    elif request_create_file.lower() == "нет":
+    elif request_append_new_note.lower() == "нет":
         print('Файл не создан')
         break
     else:
