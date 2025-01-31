@@ -6,10 +6,10 @@ notes = [
     {"username": "Артем", "title": "Любимые авто", "content": "Запорожец, Лада."}
 ]
 print("Список заметок:\n")
-        # Обращение по переменной idx
+        # Обращение по переменной idx для нумерации
 for idx, note in enumerate(notes):
     print(
-        f"{idx + 1}. Имя: {note['username']}, Заголовок: {note['title']},\n Описание: {note['content']}\n")
+        f"{idx +1}. Имя: {note['username']}, Заголовок: {note['title']},\n Описание: {note['content']}")
 
 def delete_notes():
     # Запрос у пользователя имя пользователя или заголовок заметки
@@ -42,5 +42,5 @@ def delete_notes():
     for note in notes:
         print(f"{note['username']} - {note['title']}: {note['content']}")
 
-# Запуск функции удаления заметок
+    # Запуск функции удаления заметок
 delete_notes()

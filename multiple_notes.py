@@ -86,7 +86,8 @@ def display_notes(notes):
     print("Список заметок:\n")
     for idx, note in enumerate(notes):
         print(
-            f"{idx + 1}. Имя: {note['name']}, Заголовок: {note['title']}, Описание: {note['description']}, Статус: {note['status']}, Дата создания: {note['creation_date']}, Дедлайн: {note['deadline']}\n")
+            f"{idx + 1}. Имя: {note['name']}, Заголовок: {note['title']}, Описание: {note['description']},"
+            f" Статус: {note['status']}, Дата создания: {note['creation_date']}, Дедлайн: {note['deadline']}\n")
 
 def main():
     notes = []
